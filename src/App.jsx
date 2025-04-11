@@ -101,4 +101,52 @@ export default function MCUListRankingApp() {
 
   const exportToText = () => {
     const lines = items.map((title, i) => `${i + 1}. ${title}${rewatchFlags[title] ? " (Needs rewatch)" : ""}`);
-    const blob = new Blob([lines.join("\n")], { type: "te
+    const blob = new Blob([lines.join("\n")], { type: "text/plain" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "mcu_ranking.txt";
+    a.click();
+    URL.revokeObjectURL(url);
+  };
+
+  const resetRanking = () => {
+    setItems(movies.map(m => m.title));
+    setRewatchFlags({});
+    localStorage.removeItem("mcu_ranking");
+    localStorage.removeItem("mcu_rewatch");
+  };
+
+  const rankedMovies = items.map((title) => movies.find((m) => m.title === title));
+
+  return (
+    <div style={{ display: 'flex', gap: '2rem', padding: '2rem', backgroundColor: '#111827', color: '#f9fafb', minHeight: '100vh' }}>
+      <div style={{ flex: 3 }}>
+        <h1 style={{ fontSize: '1.5rem', fontWeight: 'bold', marginBottom: '1rem' }}>Rank the MCU Movies</h1>
+        <DndContext collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
+          <SortableContext items={items} strategy={verticalListSortingStrategy}>
+            {rankedMovies.map((movie, idx) => (
+              <SortableMovie
+                key={movie.title}
+                movie={movie}
+                index={idx}
+                moveToTop={moveToTop}
+                moveToMiddle={moveToMiddle}
+                moveToBottom={moveToBottom}
+                toggleRewatch={toggleRewatch}
+                rewatchNeeded={!!rewatchFlags[movie.title]}
+              />
+            ))}
+          </SortableContext>
+        </DndContext>
+      </div>
+      <div style={{ flex: 1 }}>
+        <h2 style={{ fontSize: '1.2rem', marginBottom: '1rem' }}>Controls</h2>
+        <button onClick={() => {}} style={{ marginBottom: '0.5rem', display: 'block' }}>Save Ranking (Auto)</button>
+        <p style={{ fontSize: '0.9rem', opacity: 0.6, marginBottom: '1rem' }}>Your ranking is saved automatically.</p>
+        <button onClick={exportToText} style={{ marginBottom: '0.5rem', display: 'block' }}>Export to Text</button>
+        <button onClick={resetRanking} style={{ marginBottom: '0.5rem', display: 'block' }}>Reset</button>
+      </div>
+    </div>
+  );
+}
