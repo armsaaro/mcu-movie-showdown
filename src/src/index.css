@@ -1,0 +1,14 @@
+body {
+  margin: 0;
+  font-family: system-ui, sans-serif;
+  background-color: #f9fafb;
+  color: #111827;
+}
+
+h1, h2 {
+  text-align: center;
+}
+
+img {
+  border-radius: 12px;
+}
