@@ -176,8 +176,8 @@ export default function MCUListRankingApp() {
       </div>
       <div style={{ flex: 1 }}>
         <h2 style={{ fontSize: '1.2rem', marginBottom: '1rem' }}>Controls</h2>
-        <button onClick={() => {}} style={{ marginBottom: '0.5rem', display: 'block' }}>Save Ranking (Auto)</button>
         <p style={{ fontSize: '0.9rem', opacity: 0.6, marginBottom: '1rem' }}>Your ranking is saved automatically.</p>
+        <button onClick={() => location.reload()} style={{ marginBottom: '0.5rem', display: 'block' }}>Load Ranking (On Load)</button>
         <button onClick={exportToText} style={{ marginBottom: '0.5rem', display: 'block' }}>Export to Text</button>
         <button onClick={resetRanking} style={{ marginBottom: '0.5rem', display: 'block' }}>Reset</button>
       </div>
