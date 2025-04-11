@@ -42,20 +42,22 @@ const movies = [
   { title: "Thunderbolts", poster: "https://m.media-amazon.com/images/M/MV5BZjY3ZDYxYjEtMzY4Ni00YjYxLWI1NzAtYzQzYjY1YjYxYjY1XkEyXkFqcGdeQXVyMTM1MTE1NDMx._V1_.jpg" }
 ];
 
-function SortableMovie({ movie, index }) {
+function SortableMovie({ movie, index, moveToTop, moveToBottom, toggleRewatch, rewatchNeeded }) {
   const { attributes, listeners, setNodeRef, transform, transition } = useSortable({ id: movie.title });
 
   const style = {
     transform: CSS.Transform.toString(transform),
     transition,
-    padding: '1rem',
-    marginBottom: '1rem',
+    padding: '0.5rem',
+    marginBottom: '0.5rem',
     border: '1px solid #4b5563',
-    borderRadius: '12px',
+    borderRadius: '10px',
     backgroundColor: '#374151',
     display: 'flex',
     alignItems: 'center',
-    gap: '1rem'
+    justifyContent: 'space-between',
+    gap: '0.75rem',
+    height: '120px'
   };
 
   return (
@@ -63,16 +65,32 @@ function SortableMovie({ movie, index }) {
       <img
         src={movie.poster}
         alt={movie.title}
-        style={{ width: '100px', height: '150px', objectFit: 'cover', borderRadius: '8px' }}
+        style={{ width: '60px', height: '90px', objectFit: 'cover', borderRadius: '6px' }}
         onError={(e) => { e.target.style.display = 'none'; }}
       />
-      <p style={{ color: '#f9fafb', fontWeight: '600' }}>{index + 1}. {movie.title}</p>
+      <div style={{ flexGrow: 1 }}>
+        <p style={{ color: '#f9fafb', fontWeight: '600', margin: 0 }}>{index + 1}. {movie.title}</p>
+        <label style={{ fontSize: '0.8rem' }}>
+          <input
+            type="checkbox"
+            checked={rewatchNeeded}
+            onChange={() => toggleRewatch(movie.title)}
+            style={{ marginRight: '0.5rem' }}
+          />
+          Needs rewatch
+        </label>
+      </div>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '0.25rem' }}>
+        <button onClick={() => moveToTop(movie.title)} style={{ fontSize: '0.7rem' }}>Top</button>
+        <button onClick={() => moveToBottom(movie.title)} style={{ fontSize: '0.7rem' }}>Bottom</button>
+      </div>
     </div>
   );
 }
 
 export default function MCUListRankingApp() {
   const [items, setItems] = useState(movies.map(m => m.title));
+  const [rewatchFlags, setRewatchFlags] = useState({});
 
   const handleDragEnd = (event) => {
     const { active, over } = event;
@@ -83,18 +101,47 @@ export default function MCUListRankingApp() {
     }
   };
 
+  const moveToTop = (title) => {
+    setItems((prev) => [title, ...prev.filter(t => t !== title)]);
+  };
+
+  const moveToBottom = (title) => {
+    setItems((prev) => [...prev.filter(t => t !== title), title]);
+  };
+
+  const toggleRewatch = (title) => {
+    setRewatchFlags(prev => ({ ...prev, [title]: !prev[title] }));
+  };
+
   const rankedMovies = items.map((title) => movies.find((m) => m.title === title));
 
   return (
-    <div style={{ padding: '2rem', backgroundColor: '#111827', color: '#f9fafb', minHeight: '100vh' }}>
-      <h1 style={{ fontSize: '2rem', fontWeight: 'bold', textAlign: 'center', marginBottom: '2rem' }}>Rank the MCU Movies</h1>
-      <DndContext collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
-        <SortableContext items={items} strategy={verticalListSortingStrategy}>
-          {rankedMovies.map((movie, idx) => (
-            <SortableMovie key={movie.title} movie={movie} index={idx} />
-          ))}
-        </SortableContext>
-      </DndContext>
+    <div style={{ display: 'flex', gap: '2rem', padding: '2rem', backgroundColor: '#111827', color: '#f9fafb', minHeight: '100vh' }}>
+      <div style={{ flex: 3 }}>
+        <h1 style={{ fontSize: '1.5rem', fontWeight: 'bold', marginBottom: '1rem' }}>Rank the MCU Movies</h1>
+        <DndContext collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
+          <SortableContext items={items} strategy={verticalListSortingStrategy}>
+            {rankedMovies.map((movie, idx) => (
+              <SortableMovie
+                key={movie.title}
+                movie={movie}
+                index={idx}
+                moveToTop={moveToTop}
+                moveToBottom={moveToBottom}
+                toggleRewatch={toggleRewatch}
+                rewatchNeeded={!!rewatchFlags[movie.title]}
+              />
+            ))}
+          </SortableContext>
+        </DndContext>
+      </div>
+      <div style={{ flex: 1 }}>
+        <h2 style={{ fontSize: '1.2rem', marginBottom: '1rem' }}>Controls</h2>
+        <button style={{ marginBottom: '0.5rem', display: 'block' }}>Save Ranking</button>
+        <button style={{ marginBottom: '0.5rem', display: 'block' }}>Load Ranking</button>
+        <button style={{ marginBottom: '0.5rem', display: 'block' }}>Export to Text</button>
+        <button style={{ marginBottom: '0.5rem', display: 'block' }}>Reset</button>
+      </div>
     </div>
   );
 }
