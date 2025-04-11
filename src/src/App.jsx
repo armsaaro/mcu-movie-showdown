@@ -1,7 +1,4 @@
 import { useState } from "react";
-import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { motion } from "framer-motion";
 
 const movies = [
   { title: "Iron Man", poster: "https://m.media-amazon.com/images/M/MV5BMTkzMDU3NTQyOV5BMl5BanBnXkFtZTcwNTU0NTIzMw@@._V1_.jpg" },
@@ -10,7 +7,7 @@ const movies = [
   { title: "Thor", poster: "https://m.media-amazon.com/images/M/MV5BMTM2NTI5NzY5NF5BMl5BanBnXkFtZTcwODg2MjcyNA@@._V1_.jpg" },
   { title: "Captain America: The First Avenger", poster: "https://m.media-amazon.com/images/M/MV5BMjEyMjYxNzQ3Ml5BMl5BanBnXkFtZTcwNzU1NzYxNQ@@._V1_.jpg" },
   { title: "The Avengers", poster: "https://m.media-amazon.com/images/M/MV5BMTk4NDQzNzU0Ml5BMl5BanBnXkFtZTcwNTg0NjQzNw@@._V1_.jpg" },
-  // ...[full list of all 36 movies with posters continues here]
+  // ... (remaining movies here)
 ];
 
 function getRandomPair(excludeIndex) {
@@ -39,25 +36,38 @@ export default function MCUComparisonApp() {
   const ranked = [...movies.map((m, i) => ({ ...m, score: scores[i] }))].sort((a, b) => b.score - a.score);
 
   return (
-    <div className="p-6 max-w-5xl mx-auto grid gap-6">
-      <h1 className="text-3xl font-bold text-center">MCU Movie Showdown</h1>
-      <div className="grid grid-cols-2 gap-4">
+    <div style={{ padding: '2rem', maxWidth: '900px', margin: '0 auto' }}>
+      <h1 style={{ fontSize: '2rem', fontWeight: 'bold', textAlign: 'center' }}>MCU Movie Showdown</h1>
+      <div style={{ display: 'flex', gap: '1rem', marginTop: '2rem' }}>
         {[i1, i2].map((i) => (
-          <motion.div key={i} whileHover={{ scale: 1.05 }}>
-            <Card className="cursor-pointer" onClick={() => handleChoice(i)}>
-              <CardContent className="flex flex-col items-center">
-                <img src={movies[i].poster} alt={movies[i].title} className="w-full h-96 object-cover rounded-xl" />
-                <p className="mt-4 font-semibold text-center">{movies[i].title}</p>
-              </CardContent>
-            </Card>
-          </motion.div>
+          <div
+            key={i}
+            onClick={() => handleChoice(i)}
+            style={{
+              flex: 1,
+              cursor: 'pointer',
+              textAlign: 'center',
+              border: '1px solid #ddd',
+              borderRadius: '12px',
+              padding: '1rem',
+              backgroundColor: '#fff',
+              boxShadow: '0 2px 8px rgba(0,0,0,0.1)'
+            }}
+          >
+            <img
+              src={movies[i].poster}
+              alt={movies[i].title}
+              style={{ width: '100%', height: '450px', objectFit: 'cover', borderRadius: '12px' }}
+            />
+            <p style={{ marginTop: '1rem', fontWeight: '600' }}>{movies[i].title}</p>
+          </div>
         ))}
       </div>
-      <div className="mt-8">
-        <h2 className="text-xl font-semibold">Current Rankings</h2>
-        <ul className="mt-2 space-y-1">
+      <div style={{ marginTop: '3rem' }}>
+        <h2 style={{ fontSize: '1.25rem', fontWeight: '600' }}>Current Rankings</h2>
+        <ul style={{ marginTop: '1rem', paddingLeft: '1rem' }}>
           {ranked.map((m, idx) => (
-            <li key={m.title} className="text-sm">{idx + 1}. {m.title} ({Math.round(m.score)})</li>
+            <li key={m.title} style={{ fontSize: '0.95rem' }}>{idx + 1}. {m.title} ({Math.round(m.score)})</li>
           ))}
         </ul>
       </div>
