@@ -114,7 +114,7 @@ export default function MCUListRankingApp() {
   };
 
   const moveToTop = (title) => {
-    console.log(`Moving ${title} to the top`);
+    alert(`Moving ${title} to the top`);
     setItems((prev) => {
       const filtered = prev.filter(t => t !== title);
       return [title, ...filtered];
