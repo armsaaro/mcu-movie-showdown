@@ -1,18 +1,19 @@
+
 import { useState, useEffect } from "react";
 import { DndContext, closestCenter } from '@dnd-kit/core';
 import { arrayMove, SortableContext, useSortable, verticalListSortingStrategy } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 
 const movies = [
-  { title: "Iron Man", poster: "" },
-  { title: "The Incredible Hulk", poster: "" },
-  { title: "Iron Man 2", poster: "" },
-  { title: "Thor", poster: "" },
-  { title: "Captain America: The First Avenger", poster: "" },
-  { title: "The Avengers", poster: "" },
-  { title: "Iron Man 3", poster: "" },
-  { title: "Thor: The Dark World", poster: "" },
-  { title: "Captain America: The Winter Soldier", poster: "" },
+  { title: "Iron Man", poster: "https://www.movieposters.com/cdn/shop/products/3998dd3fa7e628e415e9805b960bec61_480x.progressive.jpg?v=1573592743" },
+  { title: "The Incredible Hulk", poster: "https://www.movieposters.com/cdn/shop/files/incredible_hulk_480x.progressive.jpg?v=1739374003" },
+  { title: "Iron Man 2", poster: "https://cdn.shopify.com/s/files/1/0057/3728/3618/products/9fd133ec6c57d7a7f1fa14e1e4dd30ec_a27217a9-d142-46ca-b97e-049dc82c01b0_500x749.jpg?v=1573651337" },
+  { title: "Thor", poster: "https://www.movieposters.com/cdn/shop/products/a6607453074c185e645f8b4c94f57f48_480x.progressive.jpg?v=1573654008" },
+  { title: "Captain America: The First Avenger", poster: "https://www.movieposters.com/cdn/shop/products/958610_2582622_480x.progressive.jpg?v=1612993182" },
+  { title: "The Avengers", poster: "https://www.movieposters.com/cdn/shop/files/avengers.24x36_480x.progressive.jpg?v=1707410714" },
+  { title: "Iron Man 3", poster: "https://cdn.shopify.com/s/files/1/0057/3728/3618/products/scan013_1cc4a5a1-1263-4638-90ff-a3e98c6bed34_500x749.jpg?v=1672863629" },
+  { title: "Thor: The Dark World", poster: "https://cdn.shopify.com/s/files/1/0057/3728/3618/products/cc36a13ca636eb0caa1f46d61d6fa1ea_a252b4ae-9c72-4737-ad58-e721acd0e63a_500x749.jpg?v=1573590342" },
+  { title: "Captain America: The Winter Soldier", poster: "https://m.media-amazon.com/images/I/818xQZGm-JL.jpg" },
   { title: "Guardians of the Galaxy", poster: "https://m.media-amazon.com/images/I/71lbFfxfMtL._AC_UF894,1000_QL80_.jpg" },
   { title: "Avengers: Age of Ultron", poster: "https://m.media-amazon.com/images/M/MV5BMjM4NzYzMjE3MF5BMl5BanBnXkFtZTgwMjY3NzYzNDE@._V1_.jpg" },
   { title: "Ant-Man", poster: "https://m.media-amazon.com/images/M/MV5BMTg3NDQ5MTI2M15BMl5BanBnXkFtZTgwNjQxODI3NTE@._V1_.jpg" },
