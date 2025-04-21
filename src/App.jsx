@@ -81,7 +81,7 @@ function SortableMovie({ movie, index, moveToTop, moveToMiddle, moveToBottom, to
         </label>
       </div>
       <div style={{ display: 'flex', flexDirection: 'column', gap: '0.25rem' }}>
-        <button onClick={() => moveToTop(movie.title)} style={{ fontSize: '0.7rem' }}>Top</button>
+        <button onClick={() => alert("Button clicked!")} style={{ fontSize: '0.7rem' }}>Top</button>
         <button onClick={() => moveToMiddle(movie.title)} style={{ fontSize: '0.7rem' }}>Middle</button>
         <button onClick={() => moveToBottom(movie.title)} style={{ fontSize: '0.7rem' }}>Bottom</button>
         <button onClick={() => alert("Test Alert!")}>Test Alert</button>
