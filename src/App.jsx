@@ -65,12 +65,7 @@ function SortableMovie({ movie, index, moveToTop, moveToMiddle, moveToBottom, to
       <img
         src={movie.poster}
         alt={movie.title}
-        style={{
-          width: '150px',    // Increase the width to make the image bigger
-          height: '225px',   // Increase the height accordingly
-          objectFit: 'cover', // Keeps the image's aspect ratio intact
-          borderRadius: '6px'
-        }}
+        style={{ width: '60px', height: '90px', objectFit: 'cover', borderRadius: '6px' }}
         onError={(e) => { e.target.style.display = 'none'; }}
       />
       <div style={{ flexGrow: 1 }}>
