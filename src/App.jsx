@@ -6,14 +6,14 @@ import { CSS } from '@dnd-kit/utilities';
 const movies = [
   { title: "Iron Man", poster: "https://www.movieposters.com/cdn/shop/products/3998dd3fa7e628e415e9805b960bec61_480x.progressive.jpg?v=1573592743" },
   { title: "The Incredible Hulk", poster: "https://www.movieposters.com/cdn/shop/files/incredible_hulk_480x.progressive.jpg?v=1739374003" },
-  { title: "Iron Man 2", poster: "https://m.media-amazon.com/images/M/MV5BMjI1NjY1NzQxNV5BMl5BanBnXkFtZTcwNTM0NTY0Mw@@._V1_.jpg" },
-  { title: "Thor", poster: "https://m.media-amazon.com/images/M/MV5BMTM2NTI5NzY5NF5BMl5BanBnXkFtZTcwODg2MjcyNA@@._V1_.jpg" },
-  { title: "Captain America: The First Avenger", poster: "https://m.media-amazon.com/images/M/MV5BMjEyMjYxNzQ3Ml5BMl5BanBnXkFtZTcwNzU1NzYxNQ@@._V1_.jpg" },
-  { title: "The Avengers", poster: "https://m.media-amazon.com/images/M/MV5BMTk4NDQzNzU0Ml5BMl5BanBnXkFtZTcwNTg0NjQzNw@@._V1_.jpg" },
-  { title: "Iron Man 3", poster: "https://m.media-amazon.com/images/M/MV5BMTg5NTY3NzI4OV5BMl5BanBnXkFtZTcwNTg4Mjg3OA@@._V1_.jpg" },
-  { title: "Thor: The Dark World", poster: "https://m.media-amazon.com/images/M/MV5BMjI1ODAwNjAwNV5BMl5BanBnXkFtZTgwOTUzMzQxMDE@._V1_.jpg" },
-  { title: "Captain America: The Winter Soldier", poster: "https://m.media-amazon.com/images/M/MV5BMTQ4NzA1NzU2MF5BMl5BanBnXkFtZTgwNjk4OTY1MTE@._V1_.jpg" },
-  { title: "Guardians of the Galaxy", poster: "https://m.media-amazon.com/images/M/MV5BMjAxMjgxNzM1Nl5BMl5BanBnXkFtZTgwNjk5NjQ3MTE@._V1_.jpg" },
+  { title: "Iron Man 2", poster: "https://cdn.shopify.com/s/files/1/0057/3728/3618/products/9fd133ec6c57d7a7f1fa14e1e4dd30ec_a27217a9-d142-46ca-b97e-049dc82c01b0_500x749.jpg?v=1573651337" },
+  { title: "Thor", poster: "https://www.movieposters.com/cdn/shop/products/a6607453074c185e645f8b4c94f57f48_480x.progressive.jpg?v=1573654008" },
+  { title: "Captain America: The First Avenger", poster: "https://www.movieposters.com/cdn/shop/products/958610_2582622_480x.progressive.jpg?v=1612993182" },
+  { title: "The Avengers", poster: "https://www.movieposters.com/cdn/shop/files/avengers.24x36_480x.progressive.jpg?v=1707410714" },
+  { title: "Iron Man 3", poster: "https://cdn.shopify.com/s/files/1/0057/3728/3618/products/scan013_1cc4a5a1-1263-4638-90ff-a3e98c6bed34_500x749.jpg?v=1672863629" },
+  { title: "Thor: The Dark World", poster: "https://cdn.shopify.com/s/files/1/0057/3728/3618/products/cc36a13ca636eb0caa1f46d61d6fa1ea_a252b4ae-9c72-4737-ad58-e721acd0e63a_500x749.jpg?v=1573590342" },
+  { title: "Captain America: The Winter Soldier", poster: "https://m.media-amazon.com/images/I/818xQZGm-JL.jpg" },
+  { title: "Guardians of the Galaxy", poster: "https://m.media-amazon.com/images/I/71lbFfxfMtL._AC_UF894,1000_QL80_.jpg" },
   { title: "Avengers: Age of Ultron", poster: "https://m.media-amazon.com/images/M/MV5BMjM4NzYzMjE3MF5BMl5BanBnXkFtZTgwMjY3NzYzNDE@._V1_.jpg" },
   { title: "Ant-Man", poster: "https://m.media-amazon.com/images/M/MV5BMTg3NDQ5MTI2M15BMl5BanBnXkFtZTgwNjQxODI3NTE@._V1_.jpg" },
   { title: "Captain America: Civil War", poster: "https://m.media-amazon.com/images/M/MV5BMjMxNjY2NDMxM15BMl5BanBnXkFtZTgwNjUzMzQ1ODE@._V1_.jpg" },
@@ -65,7 +65,12 @@ function SortableMovie({ movie, index, moveToTop, moveToMiddle, moveToBottom, to
       <img
         src={movie.poster}
         alt={movie.title}
-        style={{ width: '60px', height: '90px', objectFit: 'cover', borderRadius: '6px' }}
+        style={{
+          width: '150px',    // Increase the width to make the image bigger
+          height: '225px',   // Increase the height accordingly
+          objectFit: 'cover', // Keeps the image's aspect ratio intact
+          borderRadius: '6px'
+        }}
         onError={(e) => { e.target.style.display = 'none'; }}
       />
       <div style={{ flexGrow: 1 }}>
@@ -114,9 +119,12 @@ export default function MCUListRankingApp() {
   };
 
   const moveToTop = (title) => {
-    setItems((prev) => [title, ...prev.filter(t => t !== title)]);
+    setItems((prev) => {
+      const filtered = prev.filter(t => t !== title);
+      return [title, ...filtered];  // Place the movie at the top of the list
+    });
   };
-
+  
   const moveToMiddle = (title) => {
     setItems((prev) => {
       const filtered = prev.filter(t => t !== title);
@@ -124,13 +132,12 @@ export default function MCUListRankingApp() {
       return [...filtered.slice(0, middle), title, ...filtered.slice(middle)];
     });
   };
-
+  
   const moveToBottom = (title) => {
-    setItems((prev) => [...prev.filter(t => t !== title), title]);
-  };
-
-  const toggleRewatch = (title) => {
-    setRewatchFlags(prev => ({ ...prev, [title]: !prev[title] }));
+    setItems((prev) => {
+      const filtered = prev.filter(t => t !== title);
+      return [...filtered, title];  // Place the movie at the bottom of the list
+    });
   };
 
   const exportToText = () => {
