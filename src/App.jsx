@@ -4,7 +4,7 @@ import { arrayMove, SortableContext, useSortable, verticalListSortingStrategy } 
 import { CSS } from '@dnd-kit/utilities';
 
 const movies = [
-  { title: "Iron Man", poster: "https://www.movieposters.com/cdn/shop/products/3998dd3fa7e628e415e9805b960bec61_480x.progressive.jpg?v=1573592743" },
+  { title: "Iron Man", poster: "" },
   { title: "The Incredible Hulk", poster: "" },
   { title: "Iron Man 2", poster: "" },
   { title: "Thor", poster: "" },
