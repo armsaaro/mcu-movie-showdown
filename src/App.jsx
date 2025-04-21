@@ -6,9 +6,9 @@ import { CSS } from '@dnd-kit/utilities';
 const movies = [
   { title: "Iron Man", poster: "https://www.movieposters.com/cdn/shop/products/3998dd3fa7e628e415e9805b960bec61_480x.progressive.jpg?v=1573592743" },
   { title: "The Incredible Hulk", poster: "https://www.movieposters.com/cdn/shop/files/incredible_hulk_480x.progressive.jpg?v=1739374003" },
-  { title: "Iron Man 2", poster: "https://m.media-amazon.com/images/M/MV5BMjI1NjY1NzQxNV5BMl5BanBnXkFtZTcwNTM0NTY0Mw@@._V1_.jpg" },
-  { title: "Thor", poster: "https://m.media-amazon.com/images/M/MV5BMTM2NTI5NzY5NF5BMl5BanBnXkFtZTcwODg2MjcyNA@@._V1_.jpg" },
-  { title: "Captain America: The First Avenger", poster: "https://m.media-amazon.com/images/M/MV5BMjEyMjYxNzQ3Ml5BMl5BanBnXkFtZTcwNzU1NzYxNQ@@._V1_.jpg" },
+  { title: "Iron Man 2", poster: "https://cdn.shopify.com/s/files/1/0057/3728/3618/products/9fd133ec6c57d7a7f1fa14e1e4dd30ec_a27217a9-d142-46ca-b97e-049dc82c01b0_500x749.jpg?v=1573651337" },
+  { title: "Thor", poster: "https://www.movieposters.com/cdn/shop/products/a6607453074c185e645f8b4c94f57f48_480x.progressive.jpg?v=1573654008" },
+  { title: "Captain America: The First Avenger", poster: "https://www.movieposters.com/cdn/shop/products/958610_2582622_480x.progressive.jpg?v=1612993182" },
   { title: "The Avengers", poster: "https://m.media-amazon.com/images/M/MV5BMTk4NDQzNzU0Ml5BMl5BanBnXkFtZTcwNTg0NjQzNw@@._V1_.jpg" },
   { title: "Iron Man 3", poster: "https://m.media-amazon.com/images/M/MV5BMTg5NTY3NzI4OV5BMl5BanBnXkFtZTcwNTg4Mjg3OA@@._V1_.jpg" },
   { title: "Thor: The Dark World", poster: "https://m.media-amazon.com/images/M/MV5BMjI1ODAwNjAwNV5BMl5BanBnXkFtZTgwOTUzMzQxMDE@._V1_.jpg" },
